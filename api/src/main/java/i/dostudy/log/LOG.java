@@ -59,7 +59,7 @@ public final class LOG {
 
     private static final Printer EMPTY_PRINTER = new Printer() {
         @Override
-        void log(int priority, String tag, Throwable throwable, String message, Object... args) {
+        public void log(int priority, String tag, Throwable throwable, String message, Object... args) {
 
         }
     };

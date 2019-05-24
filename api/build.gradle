@@ -2,6 +2,3 @@ apply plugin: 'java-library'
 
 dependencies {
 }
-
-sourceCompatibility = "8"
-targetCompatibility = "8"

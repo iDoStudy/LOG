@@ -23,7 +23,7 @@ public abstract class Printer implements Logger {
      * @param message   要输出的字符串
      * @param args      字符串格式化参数
      */
-    abstract void log(int priority, String tag, Throwable throwable, String message, Object... args);
+    public abstract void log(int priority, String tag, Throwable throwable, String message, Object... args);
     /**
      * 格式化输出字符串。日志级别:{@link LOG#VERBOSE}
      *
