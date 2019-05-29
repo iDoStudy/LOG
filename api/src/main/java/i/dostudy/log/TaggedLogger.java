@@ -22,7 +22,7 @@ final class TaggedLogger implements Logger {
      */
     @Override
     public void v(String message, Object... args) {
-        printer.log(LOG.VERBOSE, tag, null, message, args);
+        printer.log(LOG.VERBOSE, tag, null, printer.format(message, args));
     }
 
     /**
@@ -33,7 +33,7 @@ final class TaggedLogger implements Logger {
      */
     @Override
     public void d(String message, Object... args) {
-        printer.log(LOG.DEBUG, tag, null, message, args);
+        printer.log(LOG.DEBUG, tag, null, printer.format(message, args));
     }
 
     /**
@@ -55,7 +55,7 @@ final class TaggedLogger implements Logger {
      */
     @Override
     public void i(String message, Object... args) {
-        printer.log(LOG.INFO, tag, null, message, args);
+        printer.log(LOG.INFO, tag, null, printer.format(message, args));
     }
 
     /**
@@ -66,7 +66,7 @@ final class TaggedLogger implements Logger {
      */
     @Override
     public void w(String message, Object... args) {
-        printer.log(LOG.WARN, tag, null, message, args);
+        printer.log(LOG.WARN, tag, null, printer.format(message, args));
     }
 
     /**
@@ -77,7 +77,7 @@ final class TaggedLogger implements Logger {
      */
     @Override
     public void e(String message, Object... args) {
-        printer.log(LOG.ERROR, tag, null, message, args);
+        printer.log(LOG.ERROR, tag, null, printer.format(message, args));
     }
 
     /**
@@ -89,7 +89,7 @@ final class TaggedLogger implements Logger {
      */
     @Override
     public void e(Throwable throwable, String message, Object... args) {
-        printer.log(LOG.ERROR, tag, throwable, message, args);
+        printer.log(LOG.ERROR, tag, throwable, printer.format(message, args));
     }
 
     /**
@@ -100,7 +100,7 @@ final class TaggedLogger implements Logger {
      */
     @Override
     public void wtf(String message, Object... args) {
-        printer.log(LOG.ASSERT, tag, null, message, args);
+        printer.log(LOG.ASSERT, tag, null, printer.format(message, args));
     }
 
     /**

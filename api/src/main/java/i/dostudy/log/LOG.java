@@ -59,7 +59,7 @@ public final class LOG {
 
     private static final Printer EMPTY_PRINTER = new Printer() {
         @Override
-        public void log(int priority, String tag, Throwable throwable, String message, Object... args) {
+        public void log(int priority, String tag, Throwable throwable, String message) {
 
         }
     };
@@ -81,6 +81,7 @@ public final class LOG {
 
     /**
      * 返回Printer的class
+     *
      * @return
      */
     public static Class<? extends Printer> getPrinterClass() {
@@ -108,7 +109,7 @@ public final class LOG {
      * @param args      字符串格式化参数
      */
     public static void log(int priority, String tag, Throwable throwable, String message, Object... args) {
-        printer.log(priority, tag, throwable, message, args);
+        printer.log(priority, tag, throwable, printer.format(message, args));
     }
 
     /**

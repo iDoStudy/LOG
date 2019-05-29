@@ -14,6 +14,7 @@ public abstract class Printer implements Logger {
     public Logger t(String tag) {
         return new TaggedLogger(this, tag);
     }
+
     /**
      * 打印机(输出)通用方法
      *
@@ -21,9 +22,9 @@ public abstract class Printer implements Logger {
      * @param tag       tag
      * @param throwable 要输出详细信息的error对象
      * @param message   要输出的字符串
-     * @param args      字符串格式化参数
      */
-    public abstract void log(int priority, String tag, Throwable throwable, String message, Object... args);
+    public abstract void log(int priority, String tag, Throwable throwable, String message);
+
     /**
      * 格式化输出字符串。日志级别:{@link LOG#VERBOSE}
      *
@@ -32,8 +33,9 @@ public abstract class Printer implements Logger {
      */
     @Override
     public void v(String message, Object... args) {
-        log(LOG.VERBOSE, null, null, message, args);
+        log(LOG.VERBOSE, null, null, format(message, args));
     }
+
     /**
      * 格式化输出字符串。日志级别:{@link LOG#DEBUG}
      *
@@ -42,8 +44,9 @@ public abstract class Printer implements Logger {
      */
     @Override
     public void d(String message, Object... args) {
-        log(LOG.DEBUG, null, null, message, args);
+        log(LOG.DEBUG, null, null, format(message, args));
     }
+
     /**
      * 输出对象，支持直接输出集合。日志级别:{@link LOG#DEBUG}
      * 所支持输出的集合包括：{@link java.util.Map}、{@link java.util.Set}、{@link java.util.List} 和数组
@@ -54,6 +57,7 @@ public abstract class Printer implements Logger {
     public void d(Object object) {
         log(LOG.DEBUG, null, null, toString(object));
     }
+
     /**
      * 格式化输出字符串。日志级别:{@link LOG#INFO}
      *
@@ -62,8 +66,9 @@ public abstract class Printer implements Logger {
      */
     @Override
     public void i(String message, Object... args) {
-        log(LOG.INFO, null, null, message, args);
+        log(LOG.INFO, null, null, format(message, args));
     }
+
     /**
      * 格式化输出字符串。日志级别:{@link LOG#WARN}
      *
@@ -72,8 +77,9 @@ public abstract class Printer implements Logger {
      */
     @Override
     public void w(String message, Object... args) {
-        log(LOG.WARN, null, null, message, args);
+        log(LOG.WARN, null, null, format(message, args));
     }
+
     /**
      * 格式化输出字符串。日志级别:{@link LOG#ERROR}
      *
@@ -82,8 +88,9 @@ public abstract class Printer implements Logger {
      */
     @Override
     public void e(String message, Object... args) {
-        log(LOG.ERROR, null, null, message, args);
+        log(LOG.ERROR, null, null, format(message, args));
     }
+
     /**
      * 输出{@link Throwable}详细信息和格式化的字符串。日志级别:{@link LOG#ERROR}
      *
@@ -93,8 +100,9 @@ public abstract class Printer implements Logger {
      */
     @Override
     public void e(Throwable throwable, String message, Object... args) {
-        log(LOG.ERROR, null, throwable, message, args);
+        log(LOG.ERROR, null, throwable, format(message, args));
     }
+
     /**
      * 格式化输出字符串。日志级别:{@link LOG#ASSERT}
      * Tip: Use this for exceptional situations to log
@@ -105,8 +113,9 @@ public abstract class Printer implements Logger {
      */
     @Override
     public void wtf(String message, Object... args) {
-        log(LOG.ASSERT, null, null, message, args);
+        log(LOG.ASSERT, null, null, format(message, args));
     }
+
     /**
      * 格式化输出JSON字符串。日志级别:{@link LOG#DEBUG}
      * Formats the given json content and print it
@@ -117,6 +126,7 @@ public abstract class Printer implements Logger {
     public void json(String json) {
         log(LOG.JSON, null, null, json);
     }
+
     /**
      * 格式化输出XML字符串。日志级别:{@link LOG#DEBUG}
      * Formats the given xml content and print it
@@ -127,6 +137,7 @@ public abstract class Printer implements Logger {
     public void xml(String xml) {
         log(LOG.XML, null, null, xml);
     }
+
     /**
      * 自定义格式化输出。日志级别:{@link LOG#DEBUG}
      * Formats the given string content and print it
@@ -137,12 +148,14 @@ public abstract class Printer implements Logger {
     public void custom(String custom) {
         log(LOG.CUSTOM, null, null, custom);
     }
+
     /**
      * object to string
+     *
      * @param object
      * @return
      */
-    public String toString(Object object) {
+    protected String toString(Object object) {
         if (object == null) {
             return "null";
         }
@@ -177,5 +190,16 @@ public abstract class Printer implements Logger {
             return Arrays.deepToString((Object[]) object);
         }
         return String.valueOf(object);
+    }
+
+    /**
+     * create formatted message
+     *
+     * @param message
+     * @param args
+     * @return
+     */
+    protected String format(String message, Object... args) {
+        return args == null || args.length == 0 ? message : String.format(message, args);
     }
 }
